@@ -1,0 +1,212 @@
+﻿<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="DataCompositionSchema">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ПриходнаяНакладная</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПриходнаяНакладная</dataPath>
+			<field>ПриходнаяНакладная</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПН_Номенклатура</dataPath>
+			<field>ПН_Номенклатура</field>
+			<title xsi:type="xs:string">Номенклатура</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПН_Количество</dataPath>
+			<field>ПН_Количество</field>
+			<title xsi:type="xs:string">Количество</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПН_Сумма</dataPath>
+			<field>ПН_Сумма</field>
+			<title xsi:type="xs:string">Сумма</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПН_ЕдИзм</dataPath>
+			<field>ПН_ЕдИзм</field>
+			<title xsi:type="xs:string">Ед.изм.</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ПриходнаяНакладнаяЗапасы.Ссылка КАК ПриходнаяНакладная,
+	ПриходнаяНакладнаяЗапасы.Номенклатура КАК ПН_Номенклатура,
+	СУММА(ПриходнаяНакладнаяЗапасы.Количество) КАК ПН_Количество,
+	СУММА(ПриходнаяНакладнаяЗапасы.Сумма) КАК ПН_Сумма,
+	ПриходнаяНакладнаяЗапасы.ЕдиницаИзмерения КАК ПН_ЕдИзм
+ИЗ
+	Документ.ПриходнаяНакладная.Запасы КАК ПриходнаяНакладнаяЗапасы
+
+СГРУППИРОВАТЬ ПО
+	ПриходнаяНакладнаяЗапасы.Ссылка,
+	ПриходнаяНакладнаяЗапасы.Номенклатура,
+	ПриходнаяНакладнаяЗапасы.ЕдиницаИзмерения</query>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>РасходнаяНакладная</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РасходнаяНакладная</dataPath>
+			<field>РасходнаяНакладная</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РН_Номенклатура</dataPath>
+			<field>РН_Номенклатура</field>
+			<title xsi:type="xs:string">Номенклатура</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РН_Количество</dataPath>
+			<field>РН_Количество</field>
+			<title xsi:type="xs:string">Количество</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РН_Сумма</dataPath>
+			<field>РН_Сумма</field>
+			<title xsi:type="xs:string">Сумма</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РН_ЕдИзм</dataPath>
+			<field>РН_ЕдИзм</field>
+			<title xsi:type="xs:string">Ед.изм.</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	РасходнаяНакладнаяЗапасы.Ссылка КАК РасходнаяНакладная,
+	РасходнаяНакладнаяЗапасы.Номенклатура КАК РН_Номенклатура,
+	СУММА(РасходнаяНакладнаяЗапасы.Количество) КАК РН_Количество,
+	СУММА(РасходнаяНакладнаяЗапасы.Сумма) КАК РН_Сумма,
+	РасходнаяНакладнаяЗапасы.ЕдиницаИзмерения КАК РН_ЕдИзм
+ИЗ
+	Документ.РасходнаяНакладная.Запасы КАК РасходнаяНакладнаяЗапасы
+
+СГРУППИРОВАТЬ ПО
+	РасходнаяНакладнаяЗапасы.Ссылка,
+	РасходнаяНакладнаяЗапасы.ЕдиницаИзмерения,
+	РасходнаяНакладнаяЗапасы.Номенклатура</query>
+	</dataSet>
+	<totalField>
+		<dataPath>ПН_Количество</dataPath>
+		<expression>Сумма(ПН_Количество)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ПН_Сумма</dataPath>
+		<expression>Сумма(ПН_Сумма)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>РН_Количество</dataPath>
+		<expression>Сумма(РН_Количество)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>РН_Сумма</dataPath>
+		<expression>Сумма(РН_Сумма)</expression>
+	</totalField>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Antique</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemGroup">
+						<dcsset:groupType>AndGroup</dcsset:groupType>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ПриходнаяНакладная.Дата</dcsset:left>
+							<dcsset:comparisonType>GreaterOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="v8:StandardBeginningDate">
+								<v8:variant xsi:type="v8:StandardBeginningDateVariant">Custom</v8:variant>
+								<v8:date>2021-02-04T00:00:00</v8:date>
+							</dcsset:right>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ПриходнаяНакладная.Дата</dcsset:left>
+							<dcsset:comparisonType>LessOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="v8:StandardBeginningDate">
+								<v8:variant xsi:type="v8:StandardBeginningDateVariant">Custom</v8:variant>
+								<v8:date>2021-02-04T23:59:59</v8:date>
+							</dcsset:right>
+						</dcsset:item>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemField">
+						<dcsset:field>ПриходнаяНакладная</dcsset:field>
+						<dcsset:orderType>Asc</dcsset:orderType>
+					</dcsset:item>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПриходнаяНакладная</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПН_Номенклатура</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПН_ЕдИзм</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПН_Количество</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПН_Сумма</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:outputParameters/>
+			</dcsset:item>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemGroup">
+						<dcsset:groupType>AndGroup</dcsset:groupType>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">РасходнаяНакладная.Дата</dcsset:left>
+							<dcsset:comparisonType>GreaterOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="v8:StandardBeginningDate">
+								<v8:variant xsi:type="v8:StandardBeginningDateVariant">Custom</v8:variant>
+								<v8:date>2021-02-04T00:00:00</v8:date>
+							</dcsset:right>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">РасходнаяНакладная.Дата</dcsset:left>
+							<dcsset:comparisonType>LessOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="v8:StandardBeginningDate">
+								<v8:variant xsi:type="v8:StandardBeginningDateVariant">Custom</v8:variant>
+								<v8:date>2021-02-04T23:59:59</v8:date>
+							</dcsset:right>
+						</dcsset:item>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemField">
+						<dcsset:field>РасходнаяНакладная</dcsset:field>
+						<dcsset:orderType>Asc</dcsset:orderType>
+					</dcsset:item>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>РасходнаяНакладная</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>РН_Номенклатура</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>РН_ЕдИзм</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>РН_Количество</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>РН_Сумма</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:outputParameters/>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>
